@@ -1,6 +1,6 @@
 name: trust_guard
-description: A modern financial fraud detection and dashboard system.
-publish_to: 'none'
+description: A user dashboard app with transactions, leaderboard, and settings.
+publish_to: 'none' # Prevents accidental publishing
 
 version: 1.0.0+1
 
@@ -10,15 +10,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  # UI & Icons
   cupertino_icons: ^1.0.8
-  provider: ^6.1.2
-  shared_preferences: ^2.2.1
-  intl: ^0.18.1
   google_fonts: ^6.1.0
+
+  # State Management
+  provider: ^6.1.2
+
+  # Charts & Animations
+  fl_chart: ^0.63.0
+  animations: ^2.0.10
+
+  # Notifications & Toast Messages
+  flutter_local_notifications: ^16.2.0
+  fluttertoast: ^8.2.4
+
+  # Storage & Preferences
+  shared_preferences: ^2.2.1
+
+  # Internationalization
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
   flutter_lints: ^3.0.1
 
 flutter:
