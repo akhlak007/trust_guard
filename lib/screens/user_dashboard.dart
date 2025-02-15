@@ -1642,7 +1642,7 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
-}*/
+}
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:trust_guard/screens/debt.dart';
@@ -1861,6 +1861,437 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 }
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:trust_guard/screens/debt.dart';
+import 'package:trust_guard/screens/payment_screen.dart';
+import 'package:trust_guard/widgets/NotificationsScreen.dart';
+import 'package:trust_guard/widgets/leaderboard_screen.dart';
+import 'package:trust_guard/widgets/settings_screen.dart';
+import 'package:trust_guard/widgets/transactions_screen.dart';
+import 'package:trust_guard/screens/chat_screen.dart'; // Import Chat Screen
+
+import '../widgets/transaction_list_item.dart';
+import '../widgets/dashboard_card.dart';
+
+class UserDashboard extends StatefulWidget {
+  const UserDashboard({super.key});
+
+  @override
+  _UserDashboardState createState() => _UserDashboardState();
+}
+
+class _UserDashboardState extends State<UserDashboard> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    const DashboardScreen(),
+    const TransactionsScreen(),
+    LeaderboardScreen(),
+    const SettingsScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          _screens[_selectedIndex],
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: FloatingActionButton(
+              backgroundColor: Colors.blueAccent,
+              child: const Icon(Icons.chat, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChatScreen()),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'Transactions'),
+          BottomNavigationBarItem(icon: Icon(Icons.leaderboard), label: 'Leaderboard'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Dashboard Header with Notification Icon
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Welcome Back! AKHLAK',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.notifications),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const NotificationsScreen()),
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+
+            // Financial Summary Cards
+            Row(
+              children: [
+                Expanded(
+                  child: DashboardCard(
+                    title: 'Total Expenses',
+                    value: '\$2,459.50',
+                    icon: Icons.account_balance_wallet,
+                    color: Colors.blue,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: DashboardCard(
+                    title: 'Monthly Budget',
+                    value: '\$5,000.00',
+                    icon: Icons.pie_chart,
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Payment Button
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PaymentScreen()),
+                );
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Payments',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          const Text('Manage your bills', style: TextStyle(color: Colors.grey)),
+                        ],
+                      ),
+                      const Icon(Icons.payment, size: 32, color: Colors.green),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Pie Chart for Expense Distribution
+            const SizedBox(height: 24),
+            Text('Expense Breakdown', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 200,
+              child: PieChart(
+                PieChartData(
+                  sections: [
+                    PieChartSectionData(color: Colors.blue, value: 40, title: 'Rent'),
+                    PieChartSectionData(color: Colors.green, value: 30, title: 'Food'),
+                    PieChartSectionData(color: Colors.orange, value: 20, title: 'Transport'),
+                    PieChartSectionData(color: Colors.red, value: 10, title: 'Others'),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+}*/
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:trust_guard/screens/debt.dart';
+import 'package:trust_guard/screens/payment_screen.dart';
+import 'package:trust_guard/widgets/NotificationsScreen.dart';
+import 'package:trust_guard/widgets/leaderboard_screen.dart';
+import 'package:trust_guard/widgets/settings_screen.dart';
+import 'package:trust_guard/widgets/transactions_screen.dart';
+import 'package:trust_guard/screens/chat_screen.dart'; // Import Chat Screen
+
+import '../widgets/transaction_list_item.dart';
+import '../widgets/dashboard_card.dart';
+
+class UserDashboard extends StatefulWidget {
+  const UserDashboard({super.key});
+
+  @override
+  _UserDashboardState createState() => _UserDashboardState();
+}
+
+class _UserDashboardState extends State<UserDashboard> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    const DashboardScreen(),
+    const TransactionsScreen(),
+    LeaderboardScreen(),
+    const SettingsScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          _screens[_selectedIndex],
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: FloatingActionButton(
+              backgroundColor: Colors.blueAccent,
+              child: const Icon(Icons.chat, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChatScreen()),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'Transactions'),
+          BottomNavigationBarItem(icon: Icon(Icons.leaderboard), label: 'Leaderboard'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Dashboard Header with Notification Icon
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Welcome Back! AKHLAK',
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.notifications),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const NotificationsScreen()),
+                    );
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+
+            // Financial Summary Cards
+            Row(
+              children: [
+                Expanded(
+                  child: DashboardCard(
+                    title: 'Total Expenses',
+                    value: '\$2,459.50',
+                    icon: Icons.account_balance_wallet,
+                    color: Colors.blue,
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: DashboardCard(
+                    title: 'Monthly Budget',
+                    value: '\$5,000.00',
+                    icon: Icons.pie_chart,
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Payment Button
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PaymentScreen()),
+                );
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Payments',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                          const Text('Manage your bills', style: TextStyle(color: Colors.grey)),
+                        ],
+                      ),
+                      const Icon(Icons.payment, size: 32, color: Colors.green),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Pie Chart for Expense Breakdown
+            const SizedBox(height: 24),
+            Text('Expense Breakdown', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 200,
+              child: PieChart(
+                PieChartData(
+                  sections: [
+                    PieChartSectionData(color: Colors.blue, value: 40, title: 'Rent'),
+                    PieChartSectionData(color: Colors.green, value: 30, title: 'Food'),
+                    PieChartSectionData(color: Colors.orange, value: 20, title: 'Transport'),
+                    PieChartSectionData(color: Colors.red, value: 10, title: 'Others'),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Earnings vs. Expenditure Graph
+            Text('Earnings vs Expenditure', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 200,
+              child: LineChart(
+                LineChartData(
+                  titlesData: FlTitlesData(
+                    leftTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: true, reservedSize: 40),
+                    ),
+                    bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(showTitles: true, reservedSize: 40),
+                    ),
+                  ),
+                  gridData: FlGridData(show: true),
+                  borderData: FlBorderData(show: true),
+                  lineBarsData: [
+                    // Earnings Line
+                    LineChartBarData(
+                      spots: [
+                        const FlSpot(1, 100),
+                        const FlSpot(2, 200),
+                        const FlSpot(3, 150),
+                        const FlSpot(4, 300),
+                        const FlSpot(5, 250),
+                      ],
+                      isCurved: true,
+                      color: Colors.blue,
+                      barWidth: 3,
+                    ),
+                    // Expenditure Line
+                    LineChartBarData(
+                      spots: [
+                        const FlSpot(1, 80),
+                        const FlSpot(2, 170),
+                        const FlSpot(3, 120),
+                        const FlSpot(4, 280),
+                        const FlSpot(5, 230),
+                      ],
+                      isCurved: true,
+                      color: Colors.red,
+                      barWidth: 3,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
 
 
 

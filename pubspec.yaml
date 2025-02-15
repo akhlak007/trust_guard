@@ -1,5 +1,5 @@
 name: trust_guard
-description: A user dashboard app with transactions, leaderboard, and settings.
+description: A user dashboard app with transactions, leaderboard, settings, and chat support.
 publish_to: 'none' # Prevents accidental publishing
 
 version: 1.0.0+1
@@ -31,6 +31,11 @@ dependencies:
 
   # Internationalization
   intl: ^0.18.1
+
+  # Chat UI for Messaging Feature
+  flutter_chat_ui: ^1.6.10
+  flutter_chat_types: ^3.6.2
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:
