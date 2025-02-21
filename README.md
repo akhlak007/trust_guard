@@ -1,4 +1,4 @@
-# 🛡️ TrustGuard – Smart Financial Management App 💰
+# 🛡️– Smart Financial Management App 💰
 
 **Track Expenses | Detect Fraud | Chat Assistance**
 
